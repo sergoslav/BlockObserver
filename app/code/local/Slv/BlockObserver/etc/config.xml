@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Slv BlockObserver extension for Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade
+ * the Slv BlockObserver module to newer versions in the future.
+ * If you wish to customize the Slv BlockObserver module for your needs
+ * please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   Slv
+ * @package    Slv_BlockObserver
+ * @copyright  Copyright (C) 2012 Sergey Petrov <sergoslav@gmail.com>
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <global>
+        <blocks>
+            <blockObserver>
+                <class>Slv_BlockObserver_Block</class>
+            </blockObserver>
+        </blocks>
+        <models>
+            <blockObserver>
+                <class>Slv_BlockObserver_Model</class>
+            </blockObserver>
+        </models>
+        <events>
+            <adminhtml_block_html_before>
+                <!--Use for rewrite Adminhtml-->
+                <!--You can comment of this block to speed up the module, if you do not use this section-->
+                <observers>
+                    <adminhtml_block_html_before>
+                        <type>singleton</type>
+                        <class>blockObserver/observer</class>
+                        <method>runBlockObserver</method>
+                    </adminhtml_block_html_before>
+                </observers>
+            </adminhtml_block_html_before>
+            <core_block_abstract_to_html_before>
+                <!--Use for rewrite Frontend-->
+                <!--You can comment of this block to speed up the module, if you do not use this section-->
+                <observers>
+                    <adminhtml_block_html_before>
+                        <type>singleton</type>
+                        <class>blockObserver/observer</class>
+                        <method>runBlockObserver</method>
+                    </adminhtml_block_html_before>
+                </observers>
+            </core_block_abstract_to_html_before>
+        </events>
+        <block_events>
+            <!--Example rewrite of block Mage_Adminhtml_Block_Sales_Order_Grid:-->
+            <Mage_Adminhtml_Block_Sales_Order_Grid>
+                <observers>
+                    <type>singleton</type>
+                    <block>blockObserver/adminhtml_sales_order_grid</block>
+                    <method>Mage_Adminhtml_Block_Sales_Order_Grid</method>
+                    <parent>true</parent>
+                </observers>
+            </Mage_Adminhtml_Block_Sales_Order_Grid>
+        </block_events>
+    </global>
+</config>
+
