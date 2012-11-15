@@ -17,7 +17,7 @@ Copy module to magento directory:
 Using
 ------------
 
-* Add to `.../Slv/BlockObserver/etc/config.xml` in section `<block_events>...</block_events>` data by rewrite block:
+Add to `.../Slv/BlockObserver/etc/config.xml` in section `<block_events>...</block_events>` data by rewrite block:
 ``````xml
 <block_events>
 
@@ -32,9 +32,8 @@ Using
     </Mage_Adminhtml_Block_Sales_Order_Grid>
 </block_events>
 ``````
-* Create block for add observer for method _toHtml() of block
 
-For example:
+Create block for add observer for method _toHtml() of block:
 ```````php
 class Slv_BlockObserver_Block_Adminhtml_Sales_Order_Grid extends Mage_Core_Block_Template
 {
