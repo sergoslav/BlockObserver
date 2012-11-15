@@ -19,18 +19,25 @@ Using
 
 Add to `.../Slv/BlockObserver/etc/config.xml` in section `<block_events>...</block_events>` data by rewrite block:
 ``````xml
-<block_events>
-
-    <!--Example rewrite of block Mage_Adminhtml_Block_Sales_Order_Grid:-->
-    <Mage_Adminhtml_Block_Sales_Order_Grid>
-        <observers>
-            <type>singleton</type>
-            <block>blockObserver/adminhtml_sales_order_grid</block>
-            <method>Mage_Adminhtml_Block_Sales_Order_Grid</method>
-            <parent>true</parent>
-        </observers>
-    </Mage_Adminhtml_Block_Sales_Order_Grid>
-</block_events>
+<config>
+    ...
+    <global>
+        ...
+        <block_events>
+            <!--Example rewrite of block Mage_Adminhtml_Block_Sales_Order_Grid:-->
+            <Mage_Adminhtml_Block_Sales_Order_Grid>
+                <observers>
+                    <type>singleton</type>
+                    <block>blockObserver/adminhtml_sales_order_grid</block>
+                    <method>Mage_Adminhtml_Block_Sales_Order_Grid</method>
+                    <parent>true</parent>
+                </observers>
+            </Mage_Adminhtml_Block_Sales_Order_Grid>
+        </block_events>
+        ...
+    </global>
+    ...
+</config>
 ``````
 
 Create block for add observer for method _toHtml() of block:
