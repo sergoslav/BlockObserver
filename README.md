@@ -51,12 +51,16 @@ class Slv_BlockObserver_Block_Adminhtml_Sales_Order_Grid extends Mage_Core_Block
      */
     public function Mage_Adminhtml_Block_Sales_Order_Grid($block)
     {
-        $block->addColumn('additional_column', array(
-            'header'=> Mage::helper('sales')->__('Additional Column'),
-            'width' => '80px',
-            'type'  => 'text',
-            'index' => 'increment_id',
-        ));
+        $block->addColumnAfter(
+            'additional_column',
+            array(
+                'header'=> Mage::helper('sales')->__('Additional Column'),
+                'width' => '80px',
+                'type'  => 'text',
+                'index' => 'increment_id',
+            ),
+            'status'
+        );
     }
 }
 ```````
