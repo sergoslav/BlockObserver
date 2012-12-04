@@ -56,8 +56,8 @@ class Slv_BlockObserver_Model_Observer extends Mage_Core_Model_Abstract
             } else {
                 $entities = Mage::getConfig()->getNode('block_events', 'global');
                 $result = array();
-                foreach ((array)$entities as $key => $value) {
-                    $result[$key] = (array)$value->observers;
+                foreach ((array)$entities as $_key => $value) {
+                    $result[$_key] = (array)$value->observers;
                 }
                 Mage::app()->getCache()->save(serialize($result), $cacheId, array('CONFIG'));
             }
@@ -101,10 +101,10 @@ class Slv_BlockObserver_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function runBlockObserver($observer)
     {
-        if (in_array(get_class($observer->getEvent()->getBlock()), self::$_observersKeys)) {
-            $blockObserver = $this->getBlockObserver(get_class($observer->getEvent()->getBlock()));
-        } elseif (in_array(get_parent_class($observer->getEvent()->getBlock()), self::$_observersKeys)) {
-            $blockObserver = $this->getBlockObserver(get_parent_class($observer->getEvent()->getBlock()));
+        if (in_array($classOfObserver = get_class($observer->getEvent()->getBlock()), self::$_observersKeys)) {
+            $blockObserver = $this->getBlockObserver($classOfObserver);
+        } elseif (in_array($classOfObserver = get_parent_class($observer->getEvent()->getBlock()), self::$_observersKeys)) {
+            $blockObserver = $this->getBlockObserver($classOfObserver);
             if (!$blockObserver['parent']) {
                 return false;
             }
