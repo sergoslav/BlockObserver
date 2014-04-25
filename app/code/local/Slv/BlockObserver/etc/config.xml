@@ -61,6 +61,7 @@
         </events>
         <block_events>
             <!--Example rewrite of block Mage_Adminhtml_Block_Sales_Order_Grid:-->
+            <!--
             <Mage_Adminhtml_Block_Sales_Order_Grid>
                 <observers>
                     <type>singleton</type>
@@ -69,6 +70,7 @@
                     <parent>true</parent>
                 </observers>
             </Mage_Adminhtml_Block_Sales_Order_Grid>
+            -->
         </block_events>
     </global>
 </config>
