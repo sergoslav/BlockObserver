@@ -1,0 +1,21 @@
+{
+    "name":"slv/block-observer",
+    "type":"magento-module",
+    "homepage":"https://github.com/sergoslav/BlockObserver",
+    "description":"Magento extension for rewrite blocs by event of method _toHtml using observer, without actually rewriting blocks.",
+    "authors":[
+        {
+            "name":"Sergey Petrov",
+            "email":"sergoslav@gmail.com"
+        }
+    ],
+    "require":{
+        "magento-hackathon/magento-composer-installer":"*"
+    },
+    "extra": {
+        "map": [
+            ["app/code/local/Slv/BlockObserver", "app/code/local/Slv/BlockObserver"],
+            ["app/etc/modules/Slv_BlockObserver.xml", "app/etc/modules/Slv_BlockObserver.xml"]
+        ]
+    }
+}
