@@ -1,7 +1,7 @@
 BlockObserver Magento module
 =======
 
-BlockObserver is a Magento module for rewrite blocs by event of method _toHtml using observer, without actually rewriting blocks.
+BlockObserver is a Magento extension for rewrite blocs by event of method _toHtml using observer, without actually rewriting blocks.
 
 Installation
 ------------
