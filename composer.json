@@ -3,6 +3,7 @@
     "type":"magento-module",
     "homepage":"https://github.com/sergoslav/BlockObserver",
     "description":"Magento extension for rewrite blocs by event of method _toHtml using observer, without actually rewriting blocks.",
+    "minimum-stability": "dev",
     "authors":[
         {
             "name":"Sergey Petrov",
