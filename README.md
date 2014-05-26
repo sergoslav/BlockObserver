@@ -13,6 +13,17 @@ Copy module to magento directory:
 ### Using modman
         $ modman clone git@github.com:sergoslav/BlockObserver.git
 
+### Using Composer
+        Add to composer.json :
+        "repositories": [
+            {
+                "type": "vcs",
+                "url": "https://github.com/sergoslav/BlockObserver.git"
+            }
+        ],
+        "require":{
+                "slv/block-observer":"*"
+            }
 
 Using
 ------------
