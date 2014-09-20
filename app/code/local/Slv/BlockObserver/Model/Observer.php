@@ -56,8 +56,13 @@ class Slv_BlockObserver_Model_Observer extends Mage_Core_Model_Abstract
             } else {
                 $entities = Mage::getConfig()->getNode('block_events', 'global');
                 $result = array();
-                foreach ((array)$entities as $_key => $value) {
-                    $result[$_key] = (array)$value->observers;
+                foreach ((array)$entities as $_key => $observers)
+                {
+                    if(!isset($result[$_key])) $result[$_key] = array();
+                    foreach($observers as $observer)
+                    {
+                        $result[$_key][] = (array)$observer;
+                    }
                 }
                 Mage::app()->getCache()->save(serialize($result), $cacheId, array('CONFIG'));
             }
@@ -85,7 +90,6 @@ class Slv_BlockObserver_Model_Observer extends Mage_Core_Model_Abstract
             $result = unserialize($cacheData);
         } else {
             $entities = Mage::getConfig()->getNode('block_events', 'global');
-            $result = array();
             $result = array_keys((array)$entities);
             Mage::app()->getCache()->save(serialize($result), $cacheId, array('CONFIG'));
         }
@@ -102,31 +106,34 @@ class Slv_BlockObserver_Model_Observer extends Mage_Core_Model_Abstract
     public function runBlockObserver($observer)
     {
         if (in_array($classOfObserver = get_class($observer->getEvent()->getBlock()), self::$_observersKeys)) {
-            $blockObserver = $this->getBlockObserver($classOfObserver);
+            $blockObservers = $this->getBlockObserver($classOfObserver);
+            $parentUse = false;
         } elseif (in_array($classOfObserver = get_parent_class($observer->getEvent()->getBlock()), self::$_observersKeys)) {
-            $blockObserver = $this->getBlockObserver($classOfObserver);
-            if (!$blockObserver['parent']) {
-                return false;
-            }
+            $blockObservers = $this->getBlockObserver($classOfObserver);
+            $parentUse = true;
         } else {
             return false;
         }
 
-        switch ($blockObserver['type']) {
-            case 'singleton':
-                {
+        foreach ($blockObservers as $blockObserver)
+        {
+            if ($parentUse && !$blockObserver['parent']) {
+                continue;
+            }
+
+            $block = $observer->getEvent()->getBlock();
+            switch ($blockObserver['type']) {
+                case 'singleton':
                     Mage::getBlockSingleton($blockObserver['block'])->$blockObserver['method'](
-                        $observer->getEvent()->getBlock()
+                        $block
                     );
-                }
-                break;
-            default:
-                {
+                    break;
+                default:
                     Mage::getBlock($blockObserver['block'])->$blockObserver['method'](
-                        $observer->getEvent()->getBlock()
+                        $block
                     );
-                }
-                break;
+                    break;
+            }
         }
 
     }
